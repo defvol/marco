@@ -97,6 +97,14 @@ More commands:
 * --municipality matches query against municipalities
 * --multiple will return multiple matches found per query
 
+### How to run
+
+Download INEGI data and transform it into GeoJSON:
+
+```bash
+% ./data.sh -d data -t data
+```
+
 ### Cool examples
 
 Transform a CSV to a choropleth-ready GeoJSON:

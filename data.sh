@@ -3,9 +3,10 @@
 set -e -u
 
 usage() {
-  echo "Usage: data.sh [-d directory] [-h]"
+  echo "Usage: data.sh [-d directory] [-t directory] [-h]"
   echo
   echo "-d - Download administrative boundaries from INEGI into directory"
+  echo "-t - Transform INEGI into GeoJSON."
   echo "-h - This help text."
   echo
 }
@@ -28,6 +29,12 @@ parse_options() {
           cd ..
           shift 1
       ;;
+      -t) echo "Transforming data into GeoJSON"
+          cd $2
+          transform
+          cd ..
+          shift 1
+      ;;
       -h) usage
           exit 0
       ;;
@@ -45,6 +52,12 @@ download() {
   wget -O - http://mapserver.inegi.org.mx/MGN/mgm2014v6_2.zip > m.zip
   unzip s.zip
   unzip m.zip
+}
+
+transform() {
+  rm -f states.json municipalities.json
+  ogr2ogr -f GeoJSON states.json mge2015v6_2.shp -progress
+  ogr2ogr -f GeoJSON municipalities.json mgm2015v6_2.shp -progress
 }
 
 parse_options "$@"
