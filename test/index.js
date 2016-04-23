@@ -41,6 +41,7 @@ test('matchInReadStream', (t) => {
   rl = readline.createInterface({
     input: fs.createReadStream(__dirname + '/fixtures/states.json')
   });
+
   match = (obj) => (obj.properties && obj.properties.NOM_ENT == 'Nuevo León');
   m.matchInReadStream(match, rl, function (err, data) {
     t.false(err);
@@ -51,30 +52,9 @@ test('matchInReadStream', (t) => {
   t.end();
 });
 
-test('findStateInReadStream', (t) => {
-  var rl = readline.createInterface({
-    input: fs.createReadStream(__dirname + '/fixtures/states.json')
-  });
-
-  var query = 'Baja California';
-  m.findStateInReadStream(query, rl, function (err, data) {
-    t.false(err);
-    t.true(data.geometry);
-    t.equal(data.properties.NOM_ENT, query);
-  });
-
-  m.findStateInReadStream('Null Island', rl, function (err, data) {
-    t.false(err);
-    t.false(data);
-  });
-
-  t.end();
-});
-
 test('findState', (t) => {
   m.findState('Aguascalientes', function (err, data) {
     t.false(err);
-    t.ok(data);
     t.equal(data.properties.NOM_ENT, 'Aguascalientes');
     t.equal(data.geometry.type, 'Polygon');
   });
