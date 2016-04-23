@@ -25,8 +25,34 @@ test('lineToJSON', (t) => {
   t.end();
 });
 
+test('matchInReadStream', (t) => {
+  var rl = readline.createInterface({
+    input: fs.createReadStream(__dirname + '/fixtures/states.json')
+  });
+
+  var match = (obj) => (obj.geometry && obj.geometry.type == 'Polygon');
+  m.matchInReadStream(match, rl, function (err, data) {
+    t.false(err);
+    t.equal(data.geometry.type, 'Polygon');
+    t.equal(data.type, 'Feature');
+    t.equal(data.properties.NOM_ENT, 'Baja California');
+  });
+
+  rl = readline.createInterface({
+    input: fs.createReadStream(__dirname + '/fixtures/states.json')
+  });
+  match = (obj) => (obj.properties && obj.properties.NOM_ENT == 'Nuevo León');
+  m.matchInReadStream(match, rl, function (err, data) {
+    t.false(err);
+    t.equal(data.geometry.type, 'Polygon');
+    t.equal(data.properties.NOM_ENT, 'Nuevo León');
+  });
+
+  t.end();
+});
+
 test('findStateInReadStream', (t) => {
-  const rl = readline.createInterface({
+  var rl = readline.createInterface({
     input: fs.createReadStream(__dirname + '/fixtures/states.json')
   });
 
@@ -54,6 +80,21 @@ test('findState', (t) => {
   });
 
   m.findState('Null Island', function (err, data) {
+    t.false(err);
+    t.false(data);
+  });
+
+  t.end();
+});
+
+test('findMunicipality', (t) => {
+  m.findMunicipality('Mexicali', function (err, data) {
+    t.false(err);
+    t.equal(data.properties.NOM_MUN, 'Mexicali');
+    t.equal(data.geometry.type, 'MultiPolygon');
+  });
+
+  m.findMunicipality('Null Island', function (err, data) {
     t.false(err);
     t.false(data);
   });

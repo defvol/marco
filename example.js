@@ -16,13 +16,18 @@ var usage = function() {
 }
 
 var state = argv.state || argv.s;
+var municipality = argv.municipality || argv.m;
+
 if (state) {
   marco.findState(state, (err, data) => {
     if (!err && data)
       console.log(JSON.stringify(data));
   });
-} else if (argv.municipality || argv.m) {
-  console.log(marco.findMunicipality(argv._[0]));
+} else if (municipality) {
+  marco.findMunicipality(municipality, (err, data) => {
+    if (!err && data)
+      console.log(JSON.stringify(data));
+  });
 } else {
   console.log(usage());
   process.exit(1);
