@@ -1,26 +1,8 @@
-MARCO is a simple line-delimited GeoJSON representation of Mexico's administrative boundaries, that is suitable for a data processing pipeline.
+Transform csv datasets into GeoJSON, by matching line-by-line names of places against a line-delimited GeoJSON representation of Mexico's administrative boundaries.
 
-This repo includes a set of utilities and demos as well.
+Additional layers suitable for a data processing pipeline are included.
 
-### Rationale
-
-- I want to visualize government datasets in a map.
-- The lack of geospatial datasets in Mexico is evident.
-- Nevertheless, many datasets contain name of states and municipalities, e.g. 'Baja California', 'BC'. Although a geocoder could easily find coordinates for those places, it will not give you the whole shape of the place.
-- It would be nice to have a tool that transforms those datasets containing known places to a GeoJSON with one command.
-
-Other reasons why I'm doing this:
-
-- Getting state and municipal boundaries from INEGI is a pain.
-- So many people have asked me for shapefiles with state boundaries. I suspect that it is for designing choropleths.
-- To skip the command line some people drag 'n drop those shapefiles into UI tools, yet they still go through a learning curve.
-- The government will not clean up its data.
-
-Notes:
-
-- Boundaries in OSM for Mexico are not good yet. Work is in progress on that front. Thus I'm relying in INEGI's [Marco Geoestadístico Nacional] as the source of truth.
-
-### The magic: a cheap geocoder solution
+### This is how it works
 
 If I want to find a city in Mexico:
 
