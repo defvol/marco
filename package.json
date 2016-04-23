@@ -1,0 +1,19 @@
+{
+  "name": "marco",
+  "version": "0.1.0",
+  "description": "Get GeoJSON features from string matches",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "geojson",
+    "geocoder",
+    "data"
+  ],
+  "author": "Rodolfo Wilhelmy",
+  "license": "MIT",
+  "dependencies": {
+    "minimist": "^1.2.0"
+  }
+}
