@@ -15,15 +15,15 @@ var usage = function() {
   return text.join('\n');
 }
 
-var feature = '';
-
-if (argv.state || argv.s) {
-  feature = marco.findState(argv._[0]);
+var state = argv.state || argv.s;
+if (state) {
+  marco.findState(state, (err, data) => {
+    if (!err && data)
+      console.log(JSON.stringify(data));
+  });
 } else if (argv.municipality || argv.m) {
-  feature = marco.findMunicipality(argv._[0]);
+  console.log(marco.findMunicipality(argv._[0]));
 } else {
   console.log(usage());
   process.exit(1);
 }
-
-console.log(JSON.stringify(feature));
