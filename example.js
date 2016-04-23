@@ -1,4 +1,5 @@
 var argv = require('minimist')(process.argv.slice(2));
+var marco = require('./lib/marco.js');
 
 var usage = function() {
   var text = [];
@@ -14,10 +15,15 @@ var usage = function() {
   return text.join('\n');
 }
 
+var feature = '';
+
 if (argv.state || argv.s) {
-  console.log('Fue el estado');
+  feature = marco.findState(argv._[0]);
 } else if (argv.municipality || argv.m) {
-  console.log('Fue el municipio');
+  feature = marco.findMunicipality(argv._[0]);
 } else {
   console.log(usage());
+  process.exit(1);
 }
+
+console.log(JSON.stringify(feature));
