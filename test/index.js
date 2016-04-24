@@ -26,6 +26,8 @@ test('lineToJSON', (t) => {
 });
 
 test('matchInReadStream', (t) => {
+  t.plan(7);
+
   var rl = readline.createInterface({
     input: fs.createReadStream(__dirname + '/fixtures/states.json')
   });
@@ -41,18 +43,17 @@ test('matchInReadStream', (t) => {
   rl = readline.createInterface({
     input: fs.createReadStream(__dirname + '/fixtures/states.json')
   });
-
   match = (obj) => (obj.properties && obj.properties.NOM_ENT == 'Nuevo León');
   m.matchInReadStream(match, rl, function (err, data) {
     t.false(err);
     t.equal(data.geometry.type, 'Polygon');
     t.equal(data.properties.NOM_ENT, 'Nuevo León');
   });
-
-  t.end();
 });
 
 test('findState', (t) => {
+  t.plan(5);
+
   m.findState('Aguascalientes', function (err, data) {
     t.false(err);
     t.equal(data.properties.NOM_ENT, 'Aguascalientes');
@@ -63,11 +64,11 @@ test('findState', (t) => {
     t.false(err);
     t.false(data);
   });
-
-  t.end();
 });
 
 test('findMunicipality', (t) => {
+  t.plan(5);
+
   m.findMunicipality('Mexicali', function (err, data) {
     t.false(err);
     t.equal(data.properties.NOM_MUN, 'Mexicali');
@@ -78,6 +79,4 @@ test('findMunicipality', (t) => {
     t.false(err);
     t.false(data);
   });
-
-  t.end();
 });
