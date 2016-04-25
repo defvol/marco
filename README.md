@@ -1,10 +1,16 @@
-Transform a CSV dataset into GeoJSON, by matching names of places against a line-delimited GeoJSON representation of Mexico's administrative boundaries.
+Transform a CSV dataset into GeoJSON, by matching names of places against a line-delimited GeoJSON source of truth.
 
 Additional layers suitable for a data processing pipeline are included.
 
 ![demo](https://raw.githubusercontent.com/rodowi/marco/master/demo.gif)
 
 ### This is how it works
+
+**Bring your own**
+
+The PoC looks for administrative boundaries in Mexico from [Marco Geoestadístico Nacional](http://www.inegi.org.mx/geo/contenidos/geoestadistica/m_g_0.aspx), but you could easily swap to other sources, like OSM.
+
+**From the command line**
 
 To get the polygon of a city in Mexico, type:
 
@@ -32,7 +38,7 @@ To get the polygon of a city in Mexico, type:
 }
 ```
 
-Get a GeoJSON of the state names found in a CSV:
+Stream a CSV file and output line-delimited GeoJSON FeatureCollection:
 
 ```
 ✗ cat test/fixtures/dataset.csv | node cli.js -sc > matches.json
@@ -46,6 +52,13 @@ Get a GeoJSON of the state names found in a CSV:
 "Aguascalientes"
 "Baja California"
 "Nuevo León"
+```
+
+[recommended] [Simplify GeoJSON](https://github.com/maxogden/simplify-geojson)
+
+```bash
+% npm install simplify-geojson -g
+% cat test/fixtures/dataset.csv | node cli.js --state --collection | simplify-geojson -t 0.01 > map.json
 ```
 
 **Commands:**
@@ -66,25 +79,6 @@ Install dependencies
 
 ```bash
 % npm install
-```
-
-### How to run
-
-Stream a CSV file and output line-delimited GeoJSON features:
-
-```
-✗ cat test/fixtures/dataset.csv | node cli.js --state > matches.json
-✗ wc -l matches.json
-3 matches.json
-✗ head -n1 matches.json | jq '.properties.NOM_ENT'
-"Aguascalientes"
-```
-
-[recommended] [Simplify GeoJSON](https://github.com/maxogden/simplify-geojson)
-
-```bash
-% npm install simplify-geojson -g
-% cat test/fixtures/dataset.csv | node cli.js --state --collection | simplify-geojson -t 0.01 > map.json
 ```
 
 ### Cool examples
