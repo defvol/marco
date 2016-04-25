@@ -1,7 +1,7 @@
 {
   "name": "marco",
   "version": "0.1.0",
-  "description": "Get GeoJSON features from string matches",
+  "description": "Builds a GeoJSON from datasets without coordinates",
   "main": "index.js",
   "scripts": {
     "test": "tape test/**/*.js | faucet"
