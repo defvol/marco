@@ -8,3 +8,4 @@ TODO
 - [ ] Add keywords to source of truth.
 - [ ] Simplify GeoJSON features (e.g. Z7).
 - [ ] Migrate to Vector Tiles.
+- [ ] Instead of concat-stream, console.log() FeatureCollection wrapper
