@@ -5,10 +5,11 @@ var split = require('split');
 
 var usage = function() {
   var text = [];
-  text.push('Usage: node cli.js [-s] [-m] [-h]');
+  text.push('Usage: node cli.js [-s] [-m] [-c] [-h]');
   text.push('');
   text.push('  --state matches query to states');
   text.push('  --municipality matches query against municipalities');
+  text.push('  --collection wraps results in a FeatureCollection');
   text.push('  --help prints this help message.');
   text.push('');
   return text.join('\n');
@@ -25,10 +26,15 @@ function setPipe() {
     ts = marco.toStatePolygon();
   }
 
-  process.stdin
+  var transformed = process.stdin
     .pipe(split())
-    .pipe(ts)
-    .pipe(process.stdout);
+    .pipe(ts);
+
+  if (argv.collection || argv.c) {
+    transformed.pipe(marco.concatFeatureCollection());
+  } else {
+    transformed.pipe(process.stdout);
+  }
 }
 
 setPipe();

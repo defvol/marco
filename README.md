@@ -30,6 +30,22 @@ To get the polygon of a city in Mexico, type:
 }
 ```
 
+Get a GeoJSON of the state names found in a CSV:
+
+```
+✗ cat test/fixtures/dataset.csv | node cli.js -sc > matches.json
+✗ wc -l matches.json
+6 matches.json
+✗ head -n1 matches.json
+{"type":"FeatureCollection","features":[
+✗ tail -n1 matches.json
+]}
+✗ cat matches.json | jq '.features[].properties.NOM_ENT'
+"Aguascalientes"
+"Baja California"
+"Nuevo León"
+```
+
 **Commands:**
 
 ```

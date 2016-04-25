@@ -109,3 +109,15 @@ test('toStatePolygon', (t) => {
     .pipe(m.toStatePolygon())
     .pipe(tr);
 });
+
+test('toFeatureCollection', (t) => {
+  t.plan(3);
+
+  var buffer = '{ "foo": 1 }\n{ "bar" : 2 }';
+  var fc = m.toFeatureCollection(buffer);
+
+  t.true(fc.match("FeatureCollection"), 'builds a FeatureCollection');
+  var obj = JSON.parse(fc);
+  t.equal(obj.features.length, 2, 'wraps two features');
+  t.equal(obj.features[0].foo, 1, 'haz foo');
+});
