@@ -2,6 +2,8 @@ Transform a CSV dataset into GeoJSON, by matching names of places against a line
 
 Additional layers suitable for a data processing pipeline are included.
 
+![demo](https://raw.githubusercontent.com/rodowi/marco/master/demo.gif)
+
 ### This is how it works
 
 To get the polygon of a city in Mexico, type:
@@ -76,6 +78,13 @@ Stream a CSV file and output line-delimited GeoJSON features:
 3 matches.json
 ✗ head -n1 matches.json | jq '.properties.NOM_ENT'
 "Aguascalientes"
+```
+
+[recommended] [Simplify GeoJSON](https://github.com/maxogden/simplify-geojson)
+
+```bash
+% npm install simplify-geojson -g
+% cat test/fixtures/dataset.csv | node cli.js --state --collection | simplify-geojson -t 0.01 > map.json
 ```
 
 ### Cool examples
