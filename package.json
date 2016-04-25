@@ -14,7 +14,8 @@
   "author": "Rodolfo Wilhelmy",
   "license": "MIT",
   "dependencies": {
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "split": "^1.0.0"
   },
   "devDependencies": {
     "faucet": "0.0.1",

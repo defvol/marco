@@ -87,6 +87,17 @@ Download INEGI data and transform it into GeoJSON:
 % ./data.sh -d data -t data
 ```
 
+Stream a CSV file and output line-delimited GeoJSON features:
+_(command-line pipes)_
+
+```
+✗ cat test/fixtures/dataset.csv | node example.js --state > matches.json
+✗ wc -l matches.json
+3 matches.json
+✗ head -n1 matches.json | jq '.properties.NOM_ENT'
+"Aguascalientes"
+```
+
 ### Cool examples
 
 Transform a CSV to a choropleth-ready GeoJSON:

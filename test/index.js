@@ -1,7 +1,9 @@
-const fs        = require('fs');
-const m         = require('../lib/marco');
-const readline  = require('readline');
-const test      = require('tape').test;
+const fs = require('fs');
+const m = require('../lib/marco');
+const readline = require('readline');
+const test = require('tape').test;
+const split = require('split');
+const through = require('through2');
 
 test('lineToJSON', (t) => {
   // GeoJSON lines
@@ -79,4 +81,31 @@ test('findMunicipality', (t) => {
     t.false(err);
     t.false(data);
   });
+});
+
+function readableStreamFixture() {
+  // Simulating pipe from command line
+  var Readable = require('stream').Readable;
+  var rs = Readable();
+  var fixture = fs.readFileSync(__dirname + '/fixtures/dataset.csv');
+  rs._read = () => {
+    rs.push(fixture);
+    rs.push(null);
+  };
+  return rs;
+}
+
+test('toStatePolygon', (t) => {
+  t.plan(1);
+
+  var rs = readableStreamFixture();
+  var tr = through((buff, _, next) => {
+    var feature = JSON.parse(buff.toString());
+    var keys = ['type', 'properties', 'geometry'];
+    t.deepEqual(Object.keys(feature), keys, 'should output a GeoJSON feature');
+  });
+
+  rs.pipe(split())
+    .pipe(m.toStatePolygon())
+    .pipe(tr);
 });

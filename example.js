@@ -1,5 +1,7 @@
 var argv = require('minimist')(process.argv.slice(2));
 var marco = require('./lib/marco.js');
+var through = require('through2');
+var split = require('split');
 
 var usage = function() {
   var text = [];
@@ -17,6 +19,24 @@ var usage = function() {
 
 var state = argv.state || argv.s;
 var municipality = argv.municipality || argv.m;
+
+// STREAMING
+
+function setPipe() {
+  var ts = through(() => {});
+  if (state) {
+    ts = marco.toStatePolygon();
+  }
+
+  process.stdin
+    .pipe(split())
+    .pipe(ts)
+    .pipe(process.stdout);
+}
+
+setPipe();
+
+// SIMPLE QUERIES
 
 if (state) {
   marco.findState(state, (err, data) => {
