@@ -5,7 +5,7 @@ var split = require('split');
 
 var usage = function() {
   var text = [];
-  text.push('Usage: node example.js [-s] [-m] [-h]');
+  text.push('Usage: node cli.js [-s] [-m] [-h]');
   text.push('');
   text.push('  --state matches query to states');
   text.push('  --municipality matches query against municipalities');
