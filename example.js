@@ -7,11 +7,8 @@ var usage = function() {
   var text = [];
   text.push('Usage: node example.js [-s] [-m] [-h]');
   text.push('');
-  text.push('  --centroid returns a Point feature');
-  text.push('  --shape returns a Polygon feature');
   text.push('  --state matches query to states');
   text.push('  --municipality matches query against municipalities');
-  text.push('  --multiple returns all matches found per query');
   text.push('  --help prints this help message.');
   text.push('');
   return text.join('\n');
