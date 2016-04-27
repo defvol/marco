@@ -95,7 +95,7 @@ function readableStreamFixture() {
   return rs;
 }
 
-test('toStatePolygon', (t) => {
+test('toStatePolygon', { skip: process.env.TRAVIS }, (t) => {
   t.plan(1);
 
   var rs = readableStreamFixture();
