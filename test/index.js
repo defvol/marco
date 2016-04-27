@@ -53,7 +53,7 @@ test('matchInReadStream', (t) => {
   });
 });
 
-test('findState', (t) => {
+test('findState', { skip: process.env.TRAVIS }, (t) => {
   t.plan(5);
 
   m.findState('Aguascalientes', function (err, data) {
@@ -68,7 +68,7 @@ test('findState', (t) => {
   });
 });
 
-test('findMunicipality', (t) => {
+test('findMunicipality', { skip: process.env.TRAVIS }, (t) => {
   t.plan(5);
 
   m.findMunicipality('Mexicali', function (err, data) {
