@@ -53,7 +53,7 @@ test('matchInReadStream', (t) => {
   });
 });
 
-test('findState', (t) => {
+test('findState', { skip: process.env.TRAVIS }, (t) => {
   t.plan(5);
 
   m.findState('Aguascalientes', function (err, data) {
@@ -68,7 +68,7 @@ test('findState', (t) => {
   });
 });
 
-test('findMunicipality', (t) => {
+test('findMunicipality', { skip: process.env.TRAVIS }, (t) => {
   t.plan(5);
 
   m.findMunicipality('Mexicali', function (err, data) {
@@ -87,15 +87,15 @@ function readableStreamFixture() {
   // Simulating pipe from command line
   var Readable = require('stream').Readable;
   var rs = Readable();
-  var fixture = fs.readFileSync(__dirname + '/fixtures/dataset.csv');
   rs._read = () => {
-    rs.push(fixture);
+    rs.push('state, population\n');
+    rs.push('Baja California, 3315766\n');
     rs.push(null);
   };
   return rs;
 }
 
-test('toStatePolygon', (t) => {
+test('toStatePolygon', { skip: process.env.TRAVIS }, (t) => {
   t.plan(1);
 
   var rs = readableStreamFixture();
