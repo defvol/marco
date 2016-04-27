@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/rodowi/marco.svg?branch=master)](https://travis-ci.org/rodowi/marco)
+
 Transform a CSV dataset into GeoJSON, by matching names of places against a line-delimited GeoJSON source of truth.
 
 Additional layers suitable for a data processing pipeline are included.
