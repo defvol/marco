@@ -42,7 +42,7 @@ setPipe();
 // SIMPLE QUERIES
 
 if (state) {
-  marco.findState(state, (err, data) => {
+  marco.findState({ query: state }, (err, data) => {
     if (!err && data)
       console.log(JSON.stringify(data));
   });
