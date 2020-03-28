@@ -76,13 +76,19 @@ test('findState', { skip: process.env.TRAVIS }, (t) => {
 test('findMunicipality', { skip: process.env.TRAVIS }, (t) => {
   t.plan(5);
 
-  m.findMunicipality('Mexicali', function (err, data) {
+  m.findMunicipality({
+    query: 'Mexicali',
+    source: __dirname + '/fixtures/municipalities.json'
+  }, function (err, data) {
     t.false(err);
     t.equal(data.properties.NOM_MUN, 'Mexicali');
     t.equal(data.geometry.type, 'MultiPolygon');
   });
 
-  m.findMunicipality('Null Island', function (err, data) {
+  m.findMunicipality({
+    query: 'Null Island',
+    source: __dirname + '/fixtures/municipalities.json'
+  }, function (err, data) {
     t.false(err);
     t.false(data);
   });

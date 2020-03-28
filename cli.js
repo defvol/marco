@@ -47,7 +47,7 @@ if (state) {
       console.log(JSON.stringify(data));
   });
 } else if (municipality) {
-  marco.findMunicipality(municipality, (err, data) => {
+  marco.findMunicipality({ query: municipality }, (err, data) => {
     if (!err && data)
       console.log(JSON.stringify(data));
   });
