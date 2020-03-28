@@ -54,7 +54,7 @@ test('matchInReadStream', (t) => {
 });
 
 test('findState', { skip: process.env.TRAVIS }, (t) => {
-  t.plan(8);
+  t.plan(24);
 
   m.findState({ query: 'Aguascalientes' }, function (err, data) {
     t.false(err);
@@ -77,6 +77,25 @@ test('findState', { skip: process.env.TRAVIS }, (t) => {
   m.findState({ query: 'Null Island' }, function (err, data) {
     t.false(err);
     t.false(data);
+  });
+
+  // From the COVID database
+  const covid = {
+    'CHIAPAS': 'Chiapas',
+    'CIUDAD DE MÉXICO': 'Distrito Federal',
+    'COAHUILA': 'Coahuila de Zaragoza',
+    'MÉXICO': 'México',
+    'MICHOACÁN': 'Michoacán de Ocampo',
+    'SINALOA': 'Sinaloa',
+    'QUERETARO': 'Querétaro',
+    'VERACRUZ': 'Veracruz de Ignacio de la Llave'
+  };
+
+  Object.keys(covid).forEach((query) => {
+    m.findState({ query }, function (_, data) {
+      t.false(!data, query);
+      t.equal(data.properties.NOM_ENT, covid[query]);
+    });
   });
 });
 

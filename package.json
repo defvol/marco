@@ -1,6 +1,6 @@
 {
   "name": "marco",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Builds a GeoJSON from datasets without coordinates",
   "bin": {
     "marco": "./cli.js"
