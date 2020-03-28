@@ -1,6 +1,6 @@
 {
   "name": "marco",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Builds a GeoJSON from datasets without coordinates",
   "main": "index.js",
   "scripts": {
