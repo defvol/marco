@@ -2,6 +2,9 @@
   "name": "marco",
   "version": "0.3.0",
   "description": "Builds a GeoJSON from datasets without coordinates",
+  "bin": {
+    "marco": "./cli.js"
+  },
   "main": "index.js",
   "scripts": {
     "test": "tape test/**/*.js | faucet"
