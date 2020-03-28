@@ -108,23 +108,43 @@ function readableStreamFixture() {
   rs._read = () => {
     rs.push('state, population\n');
     rs.push('Baja California, 3315766\n');
+    rs.push('Mexicali, 1015766\n');
     rs.push(null);
   };
   return rs;
 }
 
 test('toStatePolygon', { skip: process.env.TRAVIS }, (t) => {
-  t.plan(1);
+  t.plan(2);
 
   var rs = readableStreamFixture();
   var tr = through((buff, _, next) => {
     var feature = JSON.parse(buff.toString());
     var keys = ['type', 'properties', 'geometry'];
+    t.equal(feature.properties.NOM_ENT, 'Baja California');
     t.deepEqual(Object.keys(feature), keys, 'should output a GeoJSON feature');
   });
 
   rs.pipe(split())
     .pipe(m.toStatePolygon())
+    .pipe(tr);
+});
+
+test('toMunicipalityPolygon', { skip: process.env.TRAVIS }, (t) => {
+  t.plan(2);
+
+  var rs = readableStreamFixture();
+  var tr = through((buff, _, next) => {
+    var feature = JSON.parse(buff.toString());
+    var keys = ['type', 'properties', 'geometry'];
+    t.equal(feature.properties.NOM_MUN, 'Mexicali');
+    t.deepEqual(Object.keys(feature), keys, 'should output a GeoJSON feature');
+  });
+
+
+  const source = __dirname + '/fixtures/municipalities.json';
+  rs.pipe(split())
+    .pipe(m.toMunicipalityPolygon({ source }))
     .pipe(tr);
 });
 
