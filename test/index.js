@@ -54,12 +54,17 @@ test('matchInReadStream', (t) => {
 });
 
 test('findState', { skip: process.env.TRAVIS }, (t) => {
-  t.plan(5);
+  t.plan(7);
 
   m.findState('Aguascalientes', function (err, data) {
     t.false(err);
     t.equal(data.properties.NOM_ENT, 'Aguascalientes');
     t.equal(data.geometry.type, 'Polygon');
+  });
+
+  m.findState('AGUASCALIENTES', function (err, data) {
+    t.false(err);
+    t.equal(data.properties.NOM_ENT, 'Aguascalientes');
   });
 
   m.findState('Null Island', function (err, data) {
