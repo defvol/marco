@@ -54,7 +54,7 @@ test('matchInReadStream', (t) => {
 });
 
 test('findState', { skip: process.env.TRAVIS }, (t) => {
-  t.plan(8);
+  t.plan(10);
 
   m.findState({ query: 'Aguascalientes' }, function (err, data) {
     t.false(err);
@@ -77,6 +77,11 @@ test('findState', { skip: process.env.TRAVIS }, (t) => {
   m.findState({ query: 'Null Island' }, function (err, data) {
     t.false(err);
     t.false(data);
+  });
+
+  m.findState({ query: 'CIUDAD DE MÉXICO' }, function (err, data) {
+    t.false(err);
+    t.equal(data.properties.NOM_ENT, 'Distrito Federal');
   });
 });
 
