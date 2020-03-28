@@ -54,20 +54,27 @@ test('matchInReadStream', (t) => {
 });
 
 test('findState', { skip: process.env.TRAVIS }, (t) => {
-  t.plan(7);
+  t.plan(8);
 
-  m.findState('Aguascalientes', function (err, data) {
+  m.findState({ query: 'Aguascalientes' }, function (err, data) {
     t.false(err);
     t.equal(data.properties.NOM_ENT, 'Aguascalientes');
     t.equal(data.geometry.type, 'Polygon');
   });
 
-  m.findState('AGUASCALIENTES', function (err, data) {
+  m.findState({ query: 'BAJA CALIFORNIA' }, function (err, data) {
     t.false(err);
-    t.equal(data.properties.NOM_ENT, 'Aguascalientes');
+    t.equal(data.properties.NOM_ENT, 'Baja California');
   });
 
-  m.findState('Null Island', function (err, data) {
+  m.findState({
+    query: 'BAJA CALIFORNIA',
+    source: __dirname + '/fixtures/municipalities.json'
+  }, function (err, data) {
+    t.equal(data, null);
+  });
+
+  m.findState({ query: 'Null Island' }, function (err, data) {
     t.false(err);
     t.false(data);
   });
@@ -76,13 +83,19 @@ test('findState', { skip: process.env.TRAVIS }, (t) => {
 test('findMunicipality', { skip: process.env.TRAVIS }, (t) => {
   t.plan(5);
 
-  m.findMunicipality('Mexicali', function (err, data) {
+  m.findMunicipality({
+    query: 'Mexicali',
+    source: __dirname + '/fixtures/municipalities.json'
+  }, function (err, data) {
     t.false(err);
     t.equal(data.properties.NOM_MUN, 'Mexicali');
     t.equal(data.geometry.type, 'MultiPolygon');
   });
 
-  m.findMunicipality('Null Island', function (err, data) {
+  m.findMunicipality({
+    query: 'Null Island',
+    source: __dirname + '/fixtures/municipalities.json'
+  }, function (err, data) {
     t.false(err);
     t.false(data);
   });
