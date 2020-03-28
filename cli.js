@@ -26,6 +26,8 @@ function setPipe() {
   var ts = through(() => {});
   if (state) {
     ts = marco.toStatePolygon({ source });
+  } else if (municipality) {
+    ts = marco.toMunicipalityPolygon({ source });
   }
 
   var transformed = process.stdin
